@@ -1,5 +1,5 @@
 # OpenSpeechToolkit
-OpenST is open-source cross-platform Python 3 library for sheech recognition and synthesis licensed under GNU GPL
+OpenST is open-source cross-platform Python 3 library for speech recognition and synthesis licensed under GNU GPL
 OpenST using following packages:
     libvlc
     PyAudio
