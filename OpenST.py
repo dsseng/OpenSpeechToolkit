@@ -21,10 +21,10 @@
 #  MA 02110-1301, USA.
 # 
 #  
-
+import gtts
+import speech_recognition as sr
+import vlc
 #synth
-
-import gtts, vlc
 
 def say(_phrase : str, _lang : str = 'en', mp3buf : str = 'openst.buf.mp3') :
         tts = gtts.gTTS(text=_phrase, lang=_lang)
@@ -36,18 +36,18 @@ def say(_phrase : str, _lang : str = 'en', mp3buf : str = 'openst.buf.mp3') :
 
 #recognition
 
-import speech_recognition as sr
-
 def listen(lang : str = "en-US", debug_mode : bool = False) :
     # Record Audio
-    print("A moment of silence, please...")
     r = sr.Recognizer()
-    if(debug_mode) :
-            print("Set minimum energy threshold to {}".format(r.energy_threshold))
-
+    
     with sr.Microphone() as source:
+        print("A moment of silence, please...")
         r.adjust_for_ambient_noise(source)
+        if(debug_mode) :
+            print("Set minimum energy threshold to {}".format(r.energy_threshold))
         print("Say something!")
+        vlco = vlc.MediaPlayer("Start.wav")
+        vlco.play();
         audio = r.listen(source)
     
     # Speech recognition using Google Speech Recognition
@@ -58,12 +58,23 @@ def listen(lang : str = "en-US", debug_mode : bool = False) :
         rec = ""
         rec = r.recognize_google(audio, language=lang)
         print("You said: " + rec)
+        vlco = vlc.MediaPlayer("Success.wav")
+        vlco.play()
     except sr.UnknownValueError:
+            vlco = vlc.MediaPlayer("Fail.wav")
+            vlco.play()
             if(debug_mode) :
                     print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
+            vlco = vlc.MediaPlayer("Fail.wav")
+            vlco.play()
             if(debug_mode) :
                     print("Could not request results from Google Speech Recognition service; {0}".format(e))
+    except TimeoutError as e:
+            vlco = vlc.MediaPlayer("Fail.wav")
+            vlco.play()
+            if(debug_mode) :
+                    print("Timed out; {0}".format(e))
     return rec
 
 #end recognition
