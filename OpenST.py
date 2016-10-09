@@ -28,10 +28,13 @@ import slowclap as sc
 #synth
 
 def say(_phrase : str, _lang : str = 'en', mp3buf : str = 'openst.buf.mp3') :
-        tts = gtts.gTTS(text=_phrase, lang=_lang)
-        tts.save(mp3buf)
-        vlco = vlc.MediaPlayer(mp3buf)
-        vlco.play()
+        try :
+                tts = gtts.gTTS(text=_phrase, lang=_lang)
+                tts.save(mp3buf)
+                vlco = vlc.MediaPlayer(mp3buf)
+                vlco.play()
+        except Exception as e:
+                print("Exception: {}".format(e))
 
 #end synth
 
