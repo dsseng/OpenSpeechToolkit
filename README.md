@@ -6,5 +6,5 @@ OpenST uses following Python 3 packages:
     SpeechRecognition
     slowclap
 OpenST uses following system packages: 
-    python 3.6+
+    python 3.5.2+
     libvlc
