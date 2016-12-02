@@ -1,2 +1,4 @@
 SpeechRecognition
 gtts
+PyAudio
+slowclap
