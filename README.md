@@ -8,3 +8,4 @@ OpenST uses following Python 3 packages:
 OpenST uses following system packages: 
     python 3.5.2+
     libvlc
+    Windows Sounds(in package)
